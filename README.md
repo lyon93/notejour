@@ -38,21 +38,7 @@ Follow these instructions to set up and run the project locally.
 
    Open your browser and navigate to `http://localhost:5173` to view the application.
 
-### Building for Production
 
-To create an optimized production build:
-
-```
-npm run build
-```
-
-### Previewing the Production Build
-
-You can preview the production build locally:
-
-```
-npm run preview
-```
 
 
 
