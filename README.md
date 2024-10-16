@@ -1,4 +1,5 @@
 # NoteJour
+![Notejour Image](https://notejour.com/og_notejour.webp)
 
 **NoteJour** is a journaling application built with React and Vite, featuring a heatmap to visualize journal entries. It is designed to help you document your thoughts, track your progress, and enhance personal growth seamlessly.
 
