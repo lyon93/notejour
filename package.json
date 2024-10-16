@@ -16,6 +16,7 @@
     "@fontsource-variable/inter": "^5.1.0",
     "@preline/overlay": "^2.5.0",
     "boring-avatars": "^1.11.2",
+    "date-fns": "^4.1.0",
     "dexie": "^4.0.8",
     "dexie-react-hooks": "^1.1.7",
     "lucide-react": "^0.447.0",
