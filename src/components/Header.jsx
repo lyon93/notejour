@@ -17,7 +17,7 @@ function Header({ currentDate, title, onTitleChange, onDrawerToggle }) {
     };
 
     return (
-        <header className="border-b border-zinc-200 bg-zinc-50 ">
+        <header className="border-b border-zinc-200 bg-zinc-50 fixed top-0 left-0 right-0 z-10 ">
             <div className="px-4 sm:px-6 md:px-8 py-4">
                 <div className="flex justify-between items-center ">
                     <p className="text-md text-zinc-500 justify-self-start">{currentDate}</p>
