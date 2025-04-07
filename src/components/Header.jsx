@@ -17,9 +17,9 @@ function Header({ currentDate, title, onTitleChange, onDrawerToggle }) {
     };
 
     return (
-        <header className="border-b border-zinc-200 bg-zinc-50">
+        <header className="border-b border-zinc-200 bg-zinc-50 ">
             <div className="px-4 sm:px-6 md:px-8 py-4">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center ">
                     <p className="text-md text-zinc-500 justify-self-start">{currentDate}</p>
                     <input
                         type="text"
@@ -37,7 +37,7 @@ function Header({ currentDate, title, onTitleChange, onDrawerToggle }) {
                         <button
                             type="button"
                             onClick={onDrawerToggle}
-                            className="p-2 rounded-full hover:bg-zinc-100 hover:text-zinc-900 transition-colors disabled:opacity-50 disabled:pointer-events-none"
+                            className="p-2 rounded-xl hover:bg-zinc-200 hover:text-zinc-900 transition-colors disabled:opacity-50 disabled:pointer-events-none"
                             aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-offcanvas-right"
                             aria-label="History"
                         >
@@ -45,7 +45,7 @@ function Header({ currentDate, title, onTitleChange, onDrawerToggle }) {
                         </button>
                         <a href="https://github.com/lyon93/notejour"
                             target="_blank"
-                            className="p-2 rounded-full hover:bg-zinc-100 text-zinc-700  hover:text-zinc-900 transition-colors"
+                            className="p-2 rounded-xl hover:bg-zinc-200 transition-colors  text-zinc-700 hover:text-zinc-900"
                             aria-label="GitHub"
                         >
                             <Github className='size-5' fill="none" xmlns="http://www.w3.org/2000/svg" />
