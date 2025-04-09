@@ -170,7 +170,7 @@ function App() {
         onTitleChange={handleTitleChange}
         onDrawerToggle={handleDrawerToggle}
       />
-      <main className="container mx-auto px-4 py-6 pt-20 overflow-hidden">
+      <main className="container px-4 py-6 pt-20 overflow-hidden">
         {!renderEditor ?
           <Editor
             blocks={blocks}
