@@ -1,4 +1,4 @@
-import { History, Github, Eclipse } from 'lucide-react';
+import { History, Github } from 'lucide-react';
 import DateUtils from '../utils/DateUtils';
 
 function Header({ currentDate, title, onTitleChange, onDrawerToggle }) {
