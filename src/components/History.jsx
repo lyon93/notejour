@@ -8,6 +8,7 @@ import 'react-modern-drawer/dist/index.css'
 import JournalHeatMap from './JournalHeatMap';
 import DateUtils from '../utils/DateUtils';
 
+const defaultColors = ['#fafafa', '#d4d4d8', '#71717a', '#3f3f46', '#18181b'];
 function History({ isOpen, onToggle, journals, onJournalSelect }) {
     const [activeJournalId, setActiveJournalId] = useState(null);
 
@@ -49,7 +50,7 @@ function History({ isOpen, onToggle, journals, onJournalSelect }) {
                                 <Avatar
                                     size={40}
                                     name={title}
-                                    colors={['#fafafa', '#d4d4d8', '#71717a', '#3f3f46', '#18181b']}
+                                    colors={defaultColors}
                                 />
                                 <p className="text-xs text-zinc-600 dark:text-zinc-400 ">
                                     {DateUtils.formatFullDate(new Date(date))}
