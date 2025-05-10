@@ -75,7 +75,7 @@ export class SoundEffectsManager {
     if (this.sounds[soundName]) {
       // Clone the audio to allow for overlapping sounds
       const sound = this.sounds[soundName].cloneNode();
-      sound.volume = 0.3; // Adjust volume as needed
+      sound.volume = 0.9; // Adjust volume as needed
       sound.play().catch(e => console.error('Failed to play sound:', e));
     }
   }

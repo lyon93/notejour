@@ -1,24 +1,32 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss";
+
+@plugin 'tailwind-scrollbar';
+
+@theme {
+
+  --color-editor: #f4f4f5;
+}
 
 body {
-  font-family: 'Inter Variable', sans-serif;
+  font-family: "Inter Variable", sans-serif;
 }
 
 /** BlockNote Overrides  https://www.blocknotejs.org/docs/styling-theming/overriding-css**/
 .bn-container[data-color-scheme] {
+  --bn-colors-editor-background: #f4f4f5;
+  --bn-colors-editor-text: #09090b;
+  --bn-colors-menu-background: #fafafa;
+  --bn-colors-tooltip-text: #09090b;
+  --bn-colors-tooltip-background: #e4e4e7;
+  --bn-colors-hovered-text: #09090b;
+  --bn-colors-side-menu: #a1a1aa;
+}
 
-  --bn-colors-editor-background: #F4F4F5;
-  --bn-colors-editor-text: #09090B;
-  --bn-colors-menu-background: #FAFAFA;
-  --bn-colors-tooltip-text: #09090B;
-  --bn-colors-tooltip-background: #E4E4E7;
-  --bn-colors-hovered-text: #09090B;
-  --bn-colors-side-menu: #A1A1AA;
+.bn-editor {
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 a {
   @apply text-zinc-700 underline underline-offset-2 decoration-zinc-400;
-
 }

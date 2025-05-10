@@ -6,8 +6,9 @@ import { useState, useRef } from "react";
 import { predict } from "../utils/PredictionaryHandler";
 import { SoundEffectsManager } from "../lib/SoundEffectsManager";
 import { useEffect } from "react";
+import DateUtils from "../utils/DateUtils";
 
-function Editor({ blocks, onBlocksChange }) {
+function Editor({ blocks, onBlocksChange, chapterDate }) {
   const editor = useCreateBlockNote({
     initialContent: blocks,
   });
@@ -141,7 +142,19 @@ function Editor({ blocks, onBlocksChange }) {
   };
 
   return (
-    <div className="py-6 bg-zinc-100 ">
+    <div
+      className="bg-editor flex flex-col shadow-sm relative min-h-[500px] w-full rounded-2xl  sm:mb-[calc(20vh)] scrollbar scrollbar-thumb-neutral-800 scrollbar-track-neutral-100"
+      style={{
+        overflow: "auto",
+        height: "500px",
+      }}
+    >
+
+      <div className="px-4 py-4">
+        <span className="float-right text-neutral-500 text-sm lowercase">
+          {DateUtils.formatFullDate(new Date(chapterDate))}
+        </span>
+      </div>
       <BlockNoteView
         onChange={handleOnChange}
         // onKeyDown={handleKeyDown}
