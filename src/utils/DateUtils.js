@@ -40,6 +40,10 @@ class DateUtils {
   static formatConditionalDate(date) {
     return date ? format(date, 'MMMM d, yyyy') : '';
   }
+
+  static format2Digit(date) {
+    return format(date, 'MMM d HH:mm').toLowerCase();
+  }
 }
 
 export default DateUtils;
