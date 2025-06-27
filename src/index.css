@@ -57,7 +57,7 @@ ul >li {
   @apply list-disc;
 }
 
-ol >li {
+ol > li {
   @apply list-decimal;
 }
 
