@@ -94,6 +94,8 @@ ol > li {
   padding-top: 64px !important;
   padding-left: 100px !important;
   padding-right: 100px !important;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 25%, black 75%);
+  mask-image: linear-gradient(to bottom, transparent 2%, #a1a1a1 75%); 
 }
 
 [contenteditable]:focus {
