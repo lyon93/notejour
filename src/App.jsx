@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "@fontsource-variable/inter";
-import Header from "./components/Header";
 import Editor from "./components/Editor";
-import Sidebar from "./components/Sidebar";
 import {
   getChapterByDate,
   addChapter,
@@ -16,7 +14,6 @@ import "preline/preline";
 
 import DateUtils from "./utils/DateUtils";
 
-const SIDEBAR_WIDTH = 280; // Define a constant for the sidebar width
 
 function App() {
   const [blocks, setBlocks] = useState([
@@ -28,7 +25,7 @@ function App() {
   const [title, setTitle] = useState("Default Title");
   const today = new Date();
   const currentDateIsoDateFormat = DateUtils.formatISODate(today);
-  const currentDate2DigitFormat =  DateUtils.format2Digit(today);
+  const currentDate2DigitFormat = DateUtils.format2Digit(today);
   const [chapterDate, setChapterDate] = useState(currentDateIsoDateFormat);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -36,9 +33,6 @@ function App() {
 
   const [currentChapterId, setCurrentChapterId] = useState(null);
 
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false); // State for sidebar visibility
-
-  const [sidebarJournals, setSidebarJournals] = useState([]);
 
   // Function to initialize chapter
   const initializeChapter = async () => {
@@ -128,7 +122,6 @@ function App() {
     setIsSidebarCollapsed((prev) => !prev);
   };
 
-  const [renderEditor, setRenderEditor] = useState(false);
 
   const handleJournalSelect = async (id) => {
     setRenderEditor(true); // Consider setting loading state here
@@ -138,7 +131,7 @@ function App() {
         setCurrentChapterId(id);
 
         setChapterDate(chapter.date);
-        
+
         setTitle(chapter.title);
         setBlocks([...chapter.content]); // Ensure deep copy if necessary
       } else {
@@ -149,6 +142,17 @@ function App() {
       setError("Failed to load selected chapter.");
     } finally {
       setRenderEditor(false); // Ensure this runs even if there's an error
+    }
+  };
+
+  const [shouldFadeTop, setShouldFadeTop] = useState(false);
+  const contentRef = useRef(null);
+
+  // Check if content needs fading based on scroll position
+  const handleScroll = () => {
+    if (contentRef.current) {
+      // Apply fade only if scrolled down at least 100px
+      setShouldFadeTop(contentRef.current.scrollTop > 20);
     }
   };
 
@@ -165,43 +169,14 @@ function App() {
   }
 
   return (
-    <div className="bg-neutral-950 flex overflow-hidden min-h-screen">
-      <Sidebar
-        journals={sidebarJournals}
-        onJournalSelect={handleJournalSelect}
-        currentChapterId={currentChapterId}
-        width={isSidebarCollapsed ? 0 : SIDEBAR_WIDTH} // Pass width based on state
-        isCollapsed={isSidebarCollapsed} // Pass collapsed state
-      />
-      <div
-        className={`flex-1 flex flex-col min-w-0 ${
-          isSidebarCollapsed ? "px-8" : "px-4"
-        } `}
-      >
-        <Header
-          currentDate={currentDate2DigitFormat}
-          title={title}
-          onTitleChange={handleTitleChange}
-          onToggleSidebar={handleToggleSidebar} // Pass the toggle handler
-          isSidebarCollapsed={isSidebarCollapsed} // Pass the state for icon logic
-        />
-        <main
-          style={{ height: 500 }}
-          className={` transition-all duration-300 `}
-        >
-          {" "}
-          {/* Added flex-1 and overflow-auto */}
-          {!renderEditor ? (
-            <Editor
-              chapterDate={chapterDate}
-              blocks={blocks}
-              currentChapterId={currentChapterId}
-              onBlocksChange={handleBlocksChange}
-            />
-          ) : (
-            <Loading /> // Show loading indicator while switching chapters
-          )}
-        </main>
+    <div className="bg-black flex overflow-hidden min-h-screen px-[100px] ">
+      <div className="w-full border-r-1 border-l-1 border-neutral-800">
+        <div className="border-b border-[#1F1F1F] pt-20 relative">
+          <div className="size-2 rotate-45 absolute bg-[#7C7C7C] -bottom-1 -left-1"></div>
+          <div className="size-2 rotate-45 absolute bg-[#7C7C7C] -bottom-1 -right-1"></div>
+        </div>
+
+        <Editor onValue={handleBlocksChange} />
       </div>
     </div>
   );

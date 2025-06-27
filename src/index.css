@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @plugin 'tailwind-scrollbar';
+@plugin "@midudev/tailwind-animations";
 
 @theme {
-
   --color-editor: #f4f4f5;
 }
 
@@ -29,4 +29,73 @@ body {
 
 a {
   @apply text-zinc-700 underline underline-offset-2 decoration-zinc-400;
+}
+
+h1,
+h2,
+h3 {
+  @apply font-bold mt-6 mb-2;
+}
+
+h1 {
+  @apply text-3xl;
+}
+
+h2 {
+  @apply text-2xl;
+}
+
+h3 {
+  @apply text-xl;
+}
+
+blockquote {
+  @apply border-l-2 border-neutral-500 pl-4 text-neutral-400;
+}
+
+ul >li {
+  @apply list-disc;
+}
+
+ol >li {
+  @apply list-decimal;
+}
+
+.rsw-editor {
+  border: none !important;
+}
+
+.rsw-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent !important;
+  border-bottom: 1px solid #1f1f1f !important;
+  padding: 8px 8px !important;
+}
+
+.rsw-toolbar > .rsw-btn {
+  fill: #a1a1a1 !important;
+}
+
+.rsw-toolbar > .rsw-btn:hover {
+  fill: #fafafa !important;
+  background-color: transparent !important;
+}
+
+.rsw-toolbar > .rsw-btn[data-active="true"] {
+  fill: #fafafa !important;
+  background-color: transparent !important;
+}
+
+.rsw-ce {
+  border: none !important;
+  outline: 0px solid transparent;
+  padding-top: 64px !important;
+  padding-left: 100px !important;
+  padding-right: 100px !important;
+}
+
+[contenteditable]:focus {
+  outline: 0px solid transparent !important;
 }
