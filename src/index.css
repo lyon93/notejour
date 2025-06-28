@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @plugin 'tailwind-scrollbar';
-@plugin "@midudev/tailwind-animations";
 
 @theme {
   --color-editor: #f4f4f5;
