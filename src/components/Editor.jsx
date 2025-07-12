@@ -87,7 +87,7 @@ function Editor({ onValue }) {
         autocompleteElement.remove();
       }
     },
-    [cursorManager, hideInlineAutoComplete]
+    [hideInlineAutoComplete]
   );
 
   const handlePrediction = useCallback(() => {
