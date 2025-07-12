@@ -27,7 +27,14 @@ const parseWords = (string, dictionaryKey) => {
  * Initializes the Predictionary by loading the dictionary file.
  * Must be called before using other methods.
  */
+
+let dictionaryInitialized = false;
 export const init = async () => {
+    // Only load once
+    if (dictionaryInitialized) {
+        console.log('Dictionary already loaded, skipping initialization');
+        return true;
+    }
     try {
         const response = await fetch(`/dictionary/words_en.txt`);
         if (!response.ok) {
@@ -36,10 +43,11 @@ export const init = async () => {
         const text = await response.text();
         parseWords(text, DICT_EN);
         console.log('words_en.txt loaded successfully.');
+        dictionaryInitialized = true;
         return true;
     } catch (error) {
         console.error('Error loading words_en.txt:', error);
-        throw error; // Re-throw to allow handling in the calling context if needed
+        throw error;
     }
 };
 
@@ -57,13 +65,10 @@ export const learnFromInput = (input, dictionaryKey) => {
 /**
  * Predicts words based on the input.
  * @param {string} word - The word to predict.
- * @returns {Array<string>} - List of prediction suggestions.
+ * @returns {string} - The predicted word.
  */
 export const predict = (word) => {
     return predictionary.predict(word, options)[0] || '';
 };
 
-/**
- * Additional methods can be added here to handle more Predictionary functionalities.
- */
 

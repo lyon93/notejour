@@ -80,7 +80,7 @@ function App() {
         // Fetch only if the sidebar is potentially visible or needed
         // Or fetch always if the data might be used elsewhere
         const journalsData = await getAllChapters();
-        setSidebarJournals(journalsData);
+        // setSidebarJournals(journalsData);
       } catch (err) {
         console.error("Error fetching sidebar journals:", err);
         // Optionally set an error state specific to the sidebar
