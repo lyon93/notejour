@@ -32,7 +32,7 @@ let dictionaryInitialized = false;
 export const init = async () => {
     // Only load once
     if (dictionaryInitialized) {
-        console.log('Dictionary already loaded, skipping initialization');
+        console.warn('Dictionary already loaded, skipping initialization');
         return true;
     }
     try {
