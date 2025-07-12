@@ -15,8 +15,8 @@ import {
   Paragraph,
 } from "./toolbar/buttons";
 import { init, predict, learnFromInput } from "../lib/prediction";
-import CursorManager from "../lib/cursor-manager";
-import { useMemo, useRef } from "react";
+import cursorManager from "../lib/cursor-manager";
+import { useRef } from "react";
 
 const CONTENT_EDITABLE_SELECTOR = ".rsw-ce";
 
@@ -24,7 +24,6 @@ function Editor({ onValue }) {
   const [value, setValue] = useState("");
   const [suggestion, setSuggestion] = useState("");
   const [dictionaryLoaded, setDictionaryLoaded] = useState(false);
-  const cursorManager = useMemo(() => new CursorManager(), []);
 
   const editorRef = useRef(null);
 
