@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
 import EditorWYSIWYG, { Toolbar } from "react-simple-wysiwyg";
-import PropTypes from "prop-types";
 import {
   BtnBold,
   BtnItalic,
@@ -201,8 +200,6 @@ function Editor({ onValue }) {
     </div>
   );
 }
-Editor.propTypes = {
-  onValue: PropTypes.func.isRequired,
-};
+
 
 export default Editor;
