@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import EditorWYSIWYG, { Toolbar } from "react-simple-wysiwyg";
+import PropTypes from "prop-types";
 import {
   BtnBold,
   BtnItalic,
@@ -15,15 +16,21 @@ import {
 } from "./toolbar/buttons";
 import { init, predict, learnFromInput } from "../lib/prediction";
 import CursorManager from "../lib/cursor-manager";
+import { useMemo, useRef } from "react";
 
-const EDITOR_CONTAINER_SELECTOR = ".rsw-editor";
 const CONTENT_EDITABLE_SELECTOR = ".rsw-ce";
 
-export default function Editor({ onValue }) {
+function Editor({ onValue }) {
   const [value, setValue] = useState("");
   const [suggestion, setSuggestion] = useState("");
   const [dictionaryLoaded, setDictionaryLoaded] = useState(false);
-  const cursorManager = new CursorManager();
+  const cursorManager = useMemo(() => new CursorManager(), []);
+
+  const editorRef = useRef(null);
+
+  const getEditorElement = useCallback(() => {
+    return editorRef.current?.querySelector(CONTENT_EDITABLE_SELECTOR);
+  }, []);
 
   useEffect(() => {
     const loadDictionary = async () => {
@@ -48,38 +55,41 @@ export default function Editor({ onValue }) {
     }
   };
 
-  const getLastWord = (text) => {
+  const getLastWord = useCallback((text) => {
     const words = text.split(/\s+/);
     return words[words.length - 1];
-  };
+  }, []);
 
-  const showInlineAutoComplete = (remainingChars) => {
-    if (!cursorManager.hasSelection() || !remainingChars) return;
+  const hideInlineAutoComplete = useCallback(() => {
+    const existingAutocomplete = document.querySelector("#inline-autocomplete");
+    if (existingAutocomplete) {
+      existingAutocomplete.remove();
+    }
+  }, []);
 
-    hideInlineAutoComplete();
+  const showInlineAutoComplete = useCallback(
+    (remainingChars) => {
+      if (!cursorManager.hasSelection() || !remainingChars) return;
 
-    const autocompleteElement = document.createElement("span");
-    autocompleteElement.id = "inline-autocomplete";
-    autocompleteElement.textContent = remainingChars;
-    autocompleteElement.style.cssText = `
+      hideInlineAutoComplete();
+
+      const autocompleteElement = document.createElement("span");
+      autocompleteElement.id = "inline-autocomplete";
+      autocompleteElement.textContent = remainingChars;
+      autocompleteElement.style.cssText = `
       color: #9ca3af;
       opacity: 0.6;
       pointer-events: none;
       user-select: none;
     `;
 
-    const success = cursorManager.insertElementAtCursor(autocompleteElement);
-    if (!success) {
-      autocompleteElement.remove();
-    }
-  };
-
-  const hideInlineAutoComplete = () => {
-    const existingAutocomplete = document.querySelector("#inline-autocomplete");
-    if (existingAutocomplete) {
-      existingAutocomplete.remove();
-    }
-  };
+      const success = cursorManager.insertElementAtCursor(autocompleteElement);
+      if (!success) {
+        autocompleteElement.remove();
+      }
+    },
+    [cursorManager, hideInlineAutoComplete]
+  );
 
   const handlePrediction = useCallback(() => {
     const editorElement = document.querySelector(CONTENT_EDITABLE_SELECTOR);
@@ -105,18 +115,19 @@ export default function Editor({ onValue }) {
       setSuggestion("");
       hideInlineAutoComplete();
     }
-  }, []); // Add suggestion as dependency since showInlineAutoComplete uses it
-
-  const getCurrentParentElement = () => {
-    return cursorManager.getCurrentParentElement();
-  };
+  }, [
+    showInlineAutoComplete,
+    hideInlineAutoComplete,
+    setSuggestion,
+    getLastWord,
+  ]);
 
   const acceptSuggestion = () => {
-    const editorElement = document.querySelector(".rsw-ce");
+    const editorElement = getEditorElement();
 
     if (!editorElement || !suggestion) return;
 
-    const selectedParentElement = getCurrentParentElement();
+    const selectedParentElement = cursorManager.getCurrentParentElement();
     const targetElement =
       selectedParentElement !== editorElement
         ? selectedParentElement
@@ -133,11 +144,11 @@ export default function Editor({ onValue }) {
         0,
         currentText.length - lastWord.length
       );
-
       targetElement.textContent = textWithoutLastWord + suggestion + " ";
-
-      // Use CursorManager to move cursor to end
-      cursorManager.setCursorPosition(targetElement, "end");
+      cursorManager.setCursorPosition({
+        element: targetElement,
+        position: "end",
+      });
 
       setSuggestion("");
       hideInlineAutoComplete();
@@ -155,19 +166,18 @@ export default function Editor({ onValue }) {
   };
 
   useEffect(() => {
-    const editorElement = document.querySelector(EDITOR_CONTAINER_SELECTOR);
-
+    const editorElement = getEditorElement();
     if (editorElement && dictionaryLoaded) {
       editorElement.addEventListener("input", handlePrediction);
+
       return () => {
         editorElement.removeEventListener("input", handlePrediction);
-        hideInlineAutoComplete();
       };
     }
-  }, [dictionaryLoaded, handlePrediction]);
+  }, [dictionaryLoaded, getEditorElement, handlePrediction]);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={editorRef}>
       <EditorWYSIWYG
         placeholder="Give me your thoughts..."
         className="bg-transparent border-none text-white"
@@ -192,3 +202,8 @@ export default function Editor({ onValue }) {
     </div>
   );
 }
+Editor.propTypes = {
+  onValue: PropTypes.func.isRequired,
+};
+
+export default Editor;

@@ -20,7 +20,7 @@ class CursorManager {
     return document.createRange();
   }
 
-  setCursorPosition(element, position = 'end') {
+  setCursorPosition({element, position = 'end'}) {
     const range = this.createRange();
     const selection = this.getCurrentSelection();
     
