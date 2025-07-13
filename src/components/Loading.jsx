@@ -1,7 +1,9 @@
+import ShinyText from "./blocks/TextAnimations/ShinyText/ShinyText";
+
 const Loading = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <p className="text-neutral-500 text-xl">Loading...</p>
+    <ShinyText text="Loading..." speed={3}  />
     </div>
   );
 };

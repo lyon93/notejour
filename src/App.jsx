@@ -14,7 +14,6 @@ import "preline/preline";
 
 import DateUtils from "./utils/DateUtils";
 
-
 function App() {
   const [blocks, setBlocks] = useState([
     {
@@ -32,7 +31,6 @@ function App() {
   const [error, setError] = useState(null);
 
   const [currentChapterId, setCurrentChapterId] = useState(null);
-
 
   // Function to initialize chapter
   const initializeChapter = async () => {
@@ -122,7 +120,6 @@ function App() {
     setIsSidebarCollapsed((prev) => !prev);
   };
 
-
   const handleJournalSelect = async (id) => {
     setRenderEditor(true); // Consider setting loading state here
     try {
@@ -156,10 +153,6 @@ function App() {
     }
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -175,8 +168,7 @@ function App() {
           <div className="size-2 rotate-45 absolute bg-[#7C7C7C] -bottom-1 -left-1"></div>
           <div className="size-2 rotate-45 absolute bg-[#7C7C7C] -bottom-1 -right-1"></div>
         </div>
-
-        <Editor onValue={handleBlocksChange} />
+        {true ? <Loading /> : <Editor onValue={handleBlocksChange} />}
       </div>
     </div>
   );
