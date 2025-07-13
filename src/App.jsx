@@ -168,7 +168,7 @@ function App() {
           <div className="size-2 rotate-45 absolute bg-[#7C7C7C] -bottom-1 -left-1"></div>
           <div className="size-2 rotate-45 absolute bg-[#7C7C7C] -bottom-1 -right-1"></div>
         </div>
-        {true ? <Loading /> : <Editor onValue={handleBlocksChange} />}
+        {isLoading ? <Loading /> : <Editor onValue={handleBlocksChange} />}
       </div>
     </div>
   );
