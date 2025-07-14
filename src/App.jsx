@@ -162,7 +162,7 @@ function App() {
   }
 
   return (
-    <div className="bg-black flex overflow-hidden min-h-screen px-[100px] ">
+    <div className="bg-black flex overflow-hidden min-h-screen px-4 md:px-[100px] ">
       <div className="w-full border-r-1 border-l-1 border-neutral-800">
         <div className="border-b border-[#1F1F1F] pt-20 relative">
           <div className="size-2 rotate-45 absolute bg-[#7C7C7C] -bottom-1 -left-1"></div>

@@ -52,7 +52,7 @@ blockquote {
   @apply border-l-2 border-neutral-500 pl-4 text-neutral-400;
 }
 
-ul >li {
+ul > li {
   @apply list-disc;
 }
 
@@ -93,8 +93,33 @@ ol > li {
   padding-top: 64px !important;
   padding-left: 100px !important;
   padding-right: 100px !important;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 25%, black 75%);
-  mask-image: linear-gradient(to bottom, transparent 2%, #a1a1a1 75%); 
+  /* -webkit-mask-image: linear-gradient(to bottom, transparent 25%, black 75%); */
+  /* mask-image: linear-gradient(to bottom, transparent 2%, #a1a1a1 75%); */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .rsw-ce {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+    padding-top: 32px !important;
+  }
+
+  .rsw-toolbar {
+    padding: 16px 16px !important;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 480px) {
+  .rsw-ce {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+
+  .rsw-toolbar {
+    padding: 16px 16px !important;
+  }
 }
 
 [contenteditable]:focus {
