@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import "@fontsource-variable/inter";
+import "@fontsource/fira-code";
 import Editor from "./components/Editor";
 import {
   getChapterByDate,
